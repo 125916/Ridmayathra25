@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BizNeS - රජම සතුට Digital Invitation</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala:wght@300;400;600;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans Sinhala', sans-serif;
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #1a1a2e 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .shape:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, #00d4ff, #0099cc);
+            top: 20%;
+            left: 10%;
+            animation-delay: -2s;
+        }
+
+        .shape:nth-child(2) {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            top: 60%;
+            right: 10%;
+            animation-delay: -4s;
+        }
+
+        .shape:nth-child(3) {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+            bottom: 20%;
+            left: 20%;
+            animation-delay: -6s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-20px) rotate(120deg); }
+            66% { transform: translateY(20px) rotate(240deg); }
+        }
+
+        /* Main Container */
+        .invitation-container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header Section */
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .logo-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 0 20px;
+        }
+
+        .biznes-logo {
+            background: linear-gradient(45deg, #00d4ff, #0099cc);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 15px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 1.5em;
+            letter-spacing: 2px;
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3); }
+            to { box-shadow: 0 15px 40px rgba(0, 212, 255, 0.6); }
+        }
+
+        .main-title {
+            font-size: 4em;
+            font-weight: 900;
+            background: linear-gradient(45deg, #00d4ff, #0099cc, #ffffff, #00d4ff);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient-shift 3s ease infinite;
+            text-shadow: 0 0 50px rgba(0, 212, 255, 0.5);
+            margin-bottom: 20px;
+            letter-spacing: 3px;
+        }
+
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .subtitle {
+            font-size: 1.5em;
+            color: #ffffff;
+            background: linear-gradient(45deg, #ff6b6b, #ffa726);
+            padding: 15px 30px;
+            border-radius: 50px;
+            display: inline-block;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Event Card */
+        .event-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 40px;
+            margin: 40px 0;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .event-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .event-title {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .date-time-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .date-box, .time-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.3);
+            transform: perspective(1000px) rotateX(5deg);
+            transition: all 0.3s ease;
+        }
+
+        .date-box:hover, .time-box:hover {
+            transform: perspective(1000px) rotateX(0deg) translateY(-10px);
+            box-shadow: 0 25px 50px rgba(102, 126, 234, 0.5);
+        }
+
+        .date-label, .time-label {
+            font-size: 1.2em;
+            font-weight: 600;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+
+        .date-value {
+            font-size: 3em;
+            font-weight: 900;
+            font-family: 'Orbitron', sans-serif;
+            margin: 10px 0;
+        }
+
+        .time-value {
+            font-size: 2.5em;
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .venue-section {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            margin: 30px 0;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(240, 147, 251, 0.3);
+            position: relative;
+            z-index: 2;
+        }
+
+        .venue-title {
+            font-size: 1.8em;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .venue-details {
+            font-size: 1.3em;
+            font-weight: 500;
+            line-height: 1.6;
+        }
+
+        /* Sponsors Section */
+        .sponsors-section {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .sponsors-title {
+            font-size: 2em;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 30px;
+        }
+
+        .sponsors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .sponsor-card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .sponsor-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
+        }
+
+        .sponsor-logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, #00d4ff, #0099cc);
+            border-radius: 15px;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.2em;
+            color: white;
+        }
+
+        .sponsor-name {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .sponsor-desc {
+            font-size: 0.9em;
+            color: #cccccc;
+            line-height: 1.4;
+        }
+
+        /* RSVP Section */
+        .rsvp-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 50px;
+            border-radius: 25px;
+            text-align: center;
+            margin: 40px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .rsvp-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: rotate 4s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .rsvp-title {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .rsvp-subtitle {
+            font-size: 1.3em;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+
+        .rsvp-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .rsvp-button {
+            background: linear-gradient(45deg, #ff6b6b, #ffa726);
+            color: white;
+            padding: 20px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
+            position: relative;
+            z-index: 2;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            min-width: 280px;
+            text-align: center;
+        }
+
+        .email-rsvp {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .whatsapp-rsvp {
+            background: linear-gradient(45deg, #25d366, #128c7e);
+            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+        }
+
+        .rsvp-button:hover {
+            transform: translateY(-5px) scale(1.05);
+        }
+
+        .email-rsvp:hover {
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.6);
+        }
+
+        .whatsapp-rsvp:hover {
+            box-shadow: 0 20px 40px rgba(37, 211, 102, 0.6);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px;
+            color: #cccccc;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        .footer-title {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .invitation-container {
+                margin: 20px auto;
+                padding: 10px;
+            @media (max-width: 600px) {
+                .rsvp-buttons {
+                    flex-direction: column;
+                    align-items: center;
+                }
+                
+                .rsvp-button {
+                    min-width: 250px;
+                    font-size: 1.1em;
+                    padding: 18px 35px;
+                }
+            }
+            
+            .main-title {
+                font-size: 2.5em;
+            }
+            
+            .subtitle {
+                font-size: 1.2em;
+                padding: 10px 20px;
+            }
+            
+            .event-card {
+                padding: 25px;
+            }
+            
+            .date-value {
+                font-size: 2em;
+            }
+            
+            .time-value {
+                font-size: 1.8em;
+            }
+            
+            .logo-section {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            opacity: 0;
+            animation: fadeIn 2s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Scroll Animations */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .scroll-animate.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="floating-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+    </div>
+
+    <div class="invitation-container">
+        <!-- Header -->
+        <div class="header loading">
+            <div class="logo-section">
+                <div class="biznes-logo">
+                    BizNeS
+                </div>
+                <div class="biznes-logo">
+                    CIRCLE OF BUSINESS MANAGEMENT
+                </div>
+            </div>
+            
+            <h1 class="main-title">රිද්ම යාත්‍රා</h1>
+            <div class="subtitle">
+                "හදවත් වෙරලට ගොඩවදින ස්වර තරංගය"
+            </div>
+        </div>
+
+        <!-- Event Card -->
+        <div class="event-card scroll-animate">
+            <h2 class="event-title">🎉 Grand Celebration Event 🎉</h2>
+            
+            <div class="date-time-section">
+                <div class="date-box">
+                    <div class="date-label">📅 Date | දිනය</div>
+                    <div class="date-value">09</div>
+                    <div style="font-size: 1.5em; font-weight: 600;">July 2025 | ජූලි මස</div>
+                </div>
+                
+                <div class="time-box">
+                    <div class="time-label">🕐 Time | වේලාව</div>
+                    <div class="time-value">4:00</div>
+                    <div style="font-size: 1.3em; font-weight: 600;">Evening | සන්ධ්‍යාව</div>
+                </div>
+            </div>
+            
+            <div class="venue-section">
+                <h3 class="venue-title">📍 Venue | ස්ථානය</h3>
+                <div class="venue-details">
+                    කළමනාකරණ හා මූල්‍ය පීඨය<br>
+                    <strong>MFLT 01</strong> ශ්‍රවණාගාර පරිශ්‍රයේදී<br>
+                    <em>Faculty of Management and Finance<br>
+                    University of Ruhuna</em>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sponsors Section -->
+        <div class="sponsors-section scroll-animate">
+            <h2 class="sponsors-title">🤝 Our Partners | අපගේ සහකරුවන්</h2>
+            
+            <div class="sponsors-grid">
+                <div class="sponsor-card">
+                    <div class="sponsor-logo">EMF</div>
+                    <div class="sponsor-name">Circle of Business Management</div>
+                    <div class="sponsor-desc">Department Of Business Management<br>Faculty of Management and Finance<br>University of Ruhuna</div>
+                </div>
+                
+                <div class="sponsor-card">
+                    <div class="sponsor-logo">CGU</div>
+                    <div class="sponsor-name">Career Guidance Unit</div>
+                    <div class="sponsor-desc">University Of Ruhuna</div>
+                </div>
+                
+                <div class="sponsor-card">
+                    <div class="sponsor-logo">🏆</div>
+                    <div class="sponsor-name">Thirtha Project</div>
+                    <div class="sponsor-desc">Excellence in Traditional Arts</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RSVP Section -->
+        <div class="rsvp-section scroll-animate">
+            <h2 class="rsvp-title">🎊 Join Our Celebration!</h2>
+            <p class="rsvp-subtitle">
+                ඔබගේ පැමිණීම තහවුරු කරන්න | Confirm Your Attendance
+            </p>
+            <div class="rsvp-buttons">
+                <a href="#" class="rsvp-button email-rsvp" onclick="sendEmailRSVP()">
+                    📧 Email RSVP | ඊමේල් තහවුරු කිරීම
+                </a>
+                <a href="#" class="rsvp-button whatsapp-rsvp" onclick="sendWhatsAppRSVP()">
+                    💬 WhatsApp RSVP | WhatsApp තහවුරු කිරීම
+                </a>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer scroll-animate">
+            <h3 class="footer-title">🌟 We Look Forward to Seeing You! 🌟</h3>
+            <p>
+                This special celebration marks another milestone in our journey of excellence.<br>
+                <em>මෙම විශේෂ උත්සවය අපගේ විශිෂ්ටත්ව ගමනේ තවත් සන්ධිස්ථානයක් සනිටුහන් කරයි.</em>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Scroll Animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.scroll-animate').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Email RSVP Function
+        function sendEmailRSVP() {
+            const recipientEmail = 'nipunsathsarasenarathna829@gmail.com';
+            const subject = encodeURIComponent('🎉 RSVP Confirmation - BizNeS රිද්ම යාත්‍රා Event');
+            const body = encodeURIComponent(`Dear Event Organizers,
+
+🎊 RSVP CONFIRMATION 🎊
+
+I am delighted to confirm my attendance at the "රිද්ම යාත්‍රා" celebration event.
+
+📅 Event Details:
+✅ Date: July 09, 2025
+✅ Time: 4:00 PM
+✅ Venue: MFLT 01, Faculty of Management and Finance, University of Ruhuna
+
+🌟 Personal Confirmation:
+• I will attend the event
+• I understand the event guidelines
+• I appreciate the invitation to this special celebration
+
+Thank you for organizing this wonderful event. I look forward to being part of this memorable celebration.
+
+Best regards,
+[Your Name]
+
+---
+සිංහල:
+ගෞරවනීය සංවිධායකවරුනි,
+
+"රිද්ම යාත්‍රා" උත්සවයට සහභාගී වීම සතුටින් තහවුරු කරමි.
+
+🎯 මගේ තහවුරු කිරීම:
+• මම අනිවාර්යයෙන්ම සහභාගී වෙමි
+• නියමිත වේලාවට පැමිණෙමි
+• මෙම විශේෂ අවස්ථාව සඳහා ස්තූතිවන්ත වෙමි
+
+ස්තූතියි!
+
+🌟 Automatically Generated RSVP 🌟`);
+
+            // Create Gmail compose URL
+            const gmailURL = `https://mail.google.com/mail/?view=cm&fs=1&to=${recipientEmail}&su=${subject}&body=${body}`;
+            
+            // Enhanced confirmation dialog
+            const confirmation = confirm(`📧 EMAIL RSVP - BizNeS "රජම සතුට" Event 📧
+
+Ready to confirm your attendance via Email?
+
+📧 Your RSVP will be sent to: ${recipientEmail}
+📅 For: July 09, 2025 at 4:00 PM
+📍 Venue: MFLT 01, University of Ruhuna
+
+✨ Click OK to open Gmail and send confirmation
+❌ Click Cancel to stay on this page
+
+Your participation makes this celebration even more special! 🌟`);
+
+            if (confirmation) {
+                // Open Gmail in new tab
+                window.open(gmailURL, '_blank');
+                
+                // Enhanced success message
+                setTimeout(() => {
+                    alert(`🎉 Email RSVP Ready! ස්තූතියි! 🎉
+
+Your RSVP has been prepared and Gmail is now open!
+
+📧 Next Steps:
+1. Check your Gmail tab
+2. Review the pre-written message
+3. Click "Send" to confirm your attendance
+4. We'll receive your confirmation immediately
+
+🎊 We're excited to celebrate with you!
+🌟 අපි ඔබ සමඟ සැමරීමට උනන්දු වෙමු!
+
+See you at the "රිද්ම යාත්‍රා" celebration! 🎯`);
+                }, 1000);
+            }
+        }
+
+        // WhatsApp RSVP Function
+        function sendWhatsAppRSVP() {
+            const phoneNumber = '+94760818098';
+            const message = encodeURIComponent(`🎊 *RSVP CONFIRMATION* 🎊
+*BizNeS "රිද්ම යාත්‍රා" Event*
+
+Dear Event Organizers,
+
+I am delighted to confirm my attendance at the "රජම සතුට" celebration event.
+
+📅 *Event Details:*
+✅ Date: July 09, 2025
+✅ Time: 4:00 PM  
+✅ Venue: MFLT 01, Faculty of Management and Finance, University of Ruhuna
+
+🌟 *Personal Confirmation:*
+• I will attend the event
+• I understand the event guidelines  
+• I appreciate the invitation to this special celebration
+
+---
+*සිංහල:*
+"රිද්ම යාත්‍රා" උත්සවයට සහභාගී වීම සතුටින් තහවුරු කරමි.
+
+🎯 *මගේ තහවුරු කිරීම:*
+• මම අනිවාර්යයෙන්ම සහභාගී වෙමි
+• නියමිත වේලාවට පැමිණෙමි  
+• මෙම විශේෂ අවස්ථාව සඳහා ස්තූතිවන්ත වෙමි
+
+Thank you for organizing this wonderful event! 🎉
+
+Best regards,
+[Edit Your Name]
+
+🌟 *WhatsApp RSVP Confirmation* 🌟`);
+
+            // Create WhatsApp URL
+            const whatsappURL = `https://wa.me/${phoneNumber.replace('+', '')}?text=${message}`;
+            
+            // Enhanced confirmation dialog
+            const confirmation = confirm(`💬 WHATSAPP RSVP - BizNeS "රිද්ම යාත්‍රා" Event 💬
+
+Ready to confirm your attendance via WhatsApp?
+
+📱 Your RSVP will be sent to: ${phoneNumber}
+📅 For: July 09, 2025 at 4:00 PM
+📍 Venue: MFLT 01, University of Ruhuna
+
+✨ Click OK to open WhatsApp and send confirmation
+❌ Click Cancel to stay on this page
+
+Quick and easy confirmation through WhatsApp! 📲`);
+
+            if (confirmation) {
+                // Open WhatsApp in new tab
+                window.open(whatsappURL, '_blank');
+                
+                // Enhanced success message
+                setTimeout(() => {
+                    alert(`💬 WhatsApp RSVP Ready! ස්තූතියි! 💬
+
+Your RSVP message has been prepared and WhatsApp is now open!
+
+📱 Next Steps:
+1. Check your WhatsApp tab/app
+2. Review the pre-written message
+3. Click "Send" to confirm your attendance
+4. You'll get instant confirmation via WhatsApp
+
+🎊 Quick and easy confirmation!
+🌟 ඉක්මන් හා පහසු තහවුරු කිරීම!
+
+See you at the "රිද්ම යාත්‍රා" celebration! 🎯`);
+                }, 1000);
+            }
+        }
+
+        // Add dynamic effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Stagger animation delays
+            const elements = document.querySelectorAll('.scroll-animate');
+            elements.forEach((element, index) => {
+                element.style.animationDelay = `${index * 0.2}s`;
+            });
+
+            // Add click effects to cards
+            const cards = document.querySelectorAll('.sponsor-card, .date-box, .time-box');
+            cards.forEach(card => {
+                card.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
